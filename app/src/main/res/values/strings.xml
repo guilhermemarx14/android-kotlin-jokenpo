@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Jokenpo</string>
+    <string name="welcome">Welcome to Jokenpo</string>
+    <string name="play">Play</string>
+    <string name="player_title">Player</string>
+    <string name="result_title">Result</string>
+    <string name="image_content_description">Some content</string>
+    <string name="restart">Restart</string>
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="player_one">Player 1</string>
+    <string name="choose">Choose your move:</string>
+    <string name="game_result">Player XXX wins</string>
+</resources>

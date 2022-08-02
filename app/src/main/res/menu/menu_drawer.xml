@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_option_player"
+        android:icon="@drawable/ic_player"
+        android:title="@string/player_title"/>
+    <item android:id="@+id/menu_option_result"
+        android:icon="@drawable/ic_result"
+        android:title="@string/result_title"/>
+</menu>
