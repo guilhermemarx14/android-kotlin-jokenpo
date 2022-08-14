@@ -2,6 +2,8 @@ package com.example.jokenpo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
@@ -10,8 +12,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.example.jokenpo.databinding.ActivityMainBinding
+import com.example.jokenpo.observers.ActivityObserver
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,8 +32,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initBinding()
+        getSavedInstanceState(savedInstanceState)
         initToolbar()
         initNavigation()
+        lifecycle.addObserver(ActivityObserver())
     }
 
     private fun initToolbar() {
@@ -87,5 +93,17 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+
+        outState.putString("myState", "MainActivity - The stateful component's states comes here.")
+    }
+
+    private fun getSavedInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.getString("myState")?.let {
+            Log.d("Jokenpo",it)
+        }
+
+    }
 
 }

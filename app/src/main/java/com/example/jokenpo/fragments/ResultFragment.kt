@@ -1,6 +1,7 @@
 package com.example.jokenpo.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -15,10 +16,15 @@ class ResultFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentResultBinding.inflate(inflater,container, false)
 
+        initBinding(inflater, container)
+        getSavedInstanceState(savedInstanceState)
         setHasOptionsMenu(true)
         return binding.root
+    }
+
+    private fun initBinding(inflater: LayoutInflater, container: ViewGroup?) {
+        binding = FragmentResultBinding.inflate(inflater,container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -29,4 +35,16 @@ class ResultFragment : Fragment() {
         return item.onNavDestinationSelected(findNavController())
     }
 
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString("myState", "ResultFragment - The stateful component's states comes here.")
+    }
+
+    private fun getSavedInstanceState(savedInstanceState: Bundle?) {
+        savedInstanceState?.getString("myState")?.let {
+            Log.d("Jokenpo",it)
+        }
+    }
 }
