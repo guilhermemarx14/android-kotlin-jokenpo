@@ -1,10 +1,12 @@
 package com.example.jokenpo
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -12,12 +14,12 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.example.jokenpo.databinding.ActivityMainBinding
+import com.example.jokenpo.interfaces.PlayListener
 import com.example.jokenpo.observers.ActivityObserver
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), PlayListener {
 
     private lateinit var drawer: DrawerLayout
     private lateinit var binding: ActivityMainBinding
@@ -28,9 +30,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var titleTextView: TextView
+    var currentPlay = "Rock"
+    override var thisContext: Context
+        get() = applicationContext
+        set(value) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         initBinding()
         getSavedInstanceState(savedInstanceState)
         initToolbar()
@@ -74,7 +81,29 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navDrawer.setupWithNavController(navController)
+        navDrawer.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.resultFragment -> {
+                    val args = Bundle()
+                    args.putString("currentPlay", currentPlay)
+                    navController.navigate(it.itemId,args)
+                }
+                else -> navController.navigate(it.itemId)
+            }
+            true
+        }
         bottomNav.setupWithNavController(navController)
+        bottomNav.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.resultFragment -> {
+                    val args = Bundle()
+                    args.putString("currentPlay", currentPlay)
+                    navController.navigate(it.itemId,args)
+                }
+                else -> navController.navigate(it.itemId)
+            }
+            true
+        }
     }
 
     private fun initBinding() {
@@ -105,5 +134,15 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onPlaySelected(selectedPlay: String) {
+        currentPlay = selectedPlay
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        return
+    }
+
+
 
 }

@@ -10,6 +10,17 @@
     <string name="player_one">Player 1</string>
     <string name="choose">Choose your move:</string>
     <string name="game_result">Player XXX wins</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="game_win">You win!!</string>
+    <string name="game_lost">You lost!!</string>
+    <string name="game_draw">Draw!!</string>
+    <string name="player_won">Player won</string>
+    <string name="computer_won">Computer won</string>
+    <string name="draw">It\'s a draw</string>
+
+    <string-array name="spinner_options_array">
+        <item>Paper</item>
+        <item>Scissor</item>
+        <item>Rock</item>
+    </string-array>
 </resources>
